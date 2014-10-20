@@ -1,0 +1,42 @@
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<link rel='stylesheet' href='css/bootstrap.min.css' />
+		<link rel='stylesheet' href='css/style.css' />
+		<title>File upload sys</title>
+	</head>
+
+	<body>
+		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	      <div class="container">
+	        <div class="navbar-header">
+	          <a class="navbar-brand" href="#">文件上传系统</a>
+	        </div>
+	        <div class="navbar-collapse collapse">
+	          <ul class="nav navbar-nav">
+	            <li class="active"><a href="javascript:void(0)">上传文件</a></li>
+	            <li><a href="{% url 'upload:list' %}">下载文件</a></li>
+	            <li><a href="{% url 'upload:search' %}">搜索</a></li>
+	          </ul>
+	        </div><!--/.nav-collapse -->
+	      </div>
+	    </div>
+
+		<div class="container">
+			<form class='form-signin' method='post' action="{% url 'upload:index' %}" enctype="multipart/form-data">
+				{% csrf_token %}
+				<h2>请选择你要上传的文件^_^</h2>
+				<input type='text' name='user' placeholder='姓名' class='form-control' required='required' />
+				<textarea name='intro' placeholder='介绍文件' class='form-control' required='required'></textarea>
+				<input type='file' name='files' class='form-control' />
+				<input type='submit' value='Submit' class='btn btn-primary' />
+				{% if result %}
+				<div class="alert alert-success result">
+					{{result}}
+				</div>
+				{% endif %}
+			</form>
+		</div>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	</body>
+</html>

@@ -1,0 +1,60 @@
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<link rel='stylesheet' href='../css/bootstrap.min.css' />
+		<link rel='stylesheet' href='../css/style.css' />
+		<title>File list sys</title>
+	</head>
+	<body>
+		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">文件上传系统</a>
+				</div>
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav">
+						<li><a href="{% url 'upload:index' %}">上传文件</a></li>
+						<li class="active"><a href="javascript:void(0)">下载文件</a></li>
+						<li><a href="{% url 'upload:search' %}">搜索</a></li>
+					</ul>
+					</div><!--/.nav-collapse -->
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>姓名</th>
+						<th>介绍</th>
+						<th>文件</th>
+						<th>上传时间</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for i in content.object_list %}
+					<tr>
+						<td>{{i.id}}</td>
+						<td>{{i.user|capfirst}}</td>
+						<td>{{i.introduction}}</td>
+						<td><a href='../files/{{i.files}}'>{{i.files}}</a></td>
+						<td>{{i.time|date:"Y-m-d H:i:s"}}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<p>
+			{% if content.has_previous %}
+			  <a href="?page={{ content.previous_page_number }}">Previous</a>
+			  {% endif %}
+	
+			  Page {{ content.number }} of {{ content.paginator.num_pages }}.
+			{% if content.has_next %}
+			  <a href="?page={{ content.next_page_number }}">Next</a>
+			{% endif %}
+			</p>
+		</div>
+		<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+	</body>
+</html>
